@@ -11,6 +11,7 @@ import UIKit
 class ListViewController: UIViewController {
   var items: [JobPosition] = []
 
+  private let apiAdapter = APIAdapter()
   private let tableView = UITableView()
   private let reuseIdentifier = "cell"
 
@@ -45,21 +46,16 @@ class ListViewController: UIViewController {
   }
 
   private func loadData() {
-    guard let url = URL(string: "https://jobs.github.com/positions.json?description=python&location=san+francisco") else {
-      return
-    }
-
-    URLSession.shared.dataTask(with: url) { (data, response, error) in
-      guard let data = data else { return }
-
-      let decoder = JSONDecoder()
-      guard let items = try? decoder.decode([JobPosition].self, from: data) else { return }
-
-      DispatchQueue.main.async {
+    apiAdapter.fetchJobPositions { (result) in
+      switch result {
+      case .success(let items):
         self.items = items
         self.tableView.reloadData()
+
+      case .failure(let error):
+        print(error)
       }
-    }.resume()
+    }
   }
 
 }
