@@ -11,7 +11,8 @@ import UIKit
 class ListViewController: UIViewController {
   var items: [JobPosition] = []
 
-  private let apiAdapter = APIAdapter()
+  private lazy var worker = ListWorker(renderer: self)
+  
   private let tableView = UITableView()
   private let reuseIdentifier = "cell"
 
@@ -21,7 +22,7 @@ class ListViewController: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = .white
     setupViews()
-    loadData()
+    worker.reloadData()
   }
 
   override func viewWillLayoutSubviews() {
@@ -39,23 +40,9 @@ class ListViewController: UIViewController {
   // MARK: Private
 
   private func setupViews() {
-    title = "SF Job Positions"
     view.addSubview(tableView)
     tableView.dataSource = self
     tableView.delegate = self
-  }
-
-  private func loadData() {
-    apiAdapter.fetchJobPositions { (result) in
-      switch result {
-      case .success(let items):
-        self.items = items
-        self.tableView.reloadData()
-
-      case .failure(let error):
-        print(error)
-      }
-    }
   }
 
 }
@@ -84,8 +71,18 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let item = items[indexPath.row]
-    let viewController = DetailViewController(item: item)
+    worker.didSelectRow(at: indexPath.row)
+  }
+}
+
+extension ListViewController: ListStateRendering {
+  func setState(_ state: ListState) {
+    title = state.title
+    items = state.items
+    tableView.reloadData()
+  }
+
+  func presentDetailViewController(_ viewController: UIViewController) {
     navigationController?.pushViewController(viewController, animated: true)
   }
 }
