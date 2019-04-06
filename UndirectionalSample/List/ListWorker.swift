@@ -8,23 +8,18 @@
 
 import UIKit
 
-protocol ListStateRendering: AnyObject {
-  func setState(_ state: ListState)
+protocol ListViewActing: AnyObject {
   func presentDetailViewController(_ viewController: UIViewController)
 }
 
 final class ListWorker {
-  weak var renderer: ListStateRendering?
+  weak var actor: ListViewActing?
 
-  var state = ListState(title: "SF Job Positions", items: []) {
-    didSet {
-      renderer?.setState(state)
-    }
-  }
+  let store: ListStore
 
-  init(renderer: ListStateRendering) {
-    self.renderer = renderer
-    renderer.setState(state)
+  init(store: ListStore, actor: ListViewActing) {
+    self.store = store
+    self.actor = actor
   }
 
   private let apiAdapter = APIAdapter()
@@ -33,7 +28,7 @@ final class ListWorker {
     apiAdapter.fetchJobPositions { (result) in
       switch result {
       case .success(let items):
-        self.state.items = items
+        self.store.handle(.loaded(items: items))
 
       case .failure(let error):
         print(error)
@@ -42,8 +37,8 @@ final class ListWorker {
   }
 
   func didSelectRow(at index: Int) {
-    let item = state.items[index]
+    let item = store.state.items[index]
     let viewController = DetailViewController(item: item)
-    renderer?.presentDetailViewController(viewController)
+    actor?.presentDetailViewController(viewController)
   }
 }

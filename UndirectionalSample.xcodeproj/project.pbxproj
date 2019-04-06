@@ -16,6 +16,7 @@
 		3461FC102256E96B006BE2EF /* APIAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3461FC0F2256E96B006BE2EF /* APIAdapter.swift */; };
 		3461FC1222570A35006BE2EF /* ListWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3461FC1122570A35006BE2EF /* ListWorker.swift */; };
 		3461FC1422570D19006BE2EF /* ListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3461FC1322570D19006BE2EF /* ListState.swift */; };
+		3461FC1622572F99006BE2EF /* ListStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3461FC1522572F99006BE2EF /* ListStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		3461FC0F2256E96B006BE2EF /* APIAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAdapter.swift; sourceTree = "<group>"; };
 		3461FC1122570A35006BE2EF /* ListWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWorker.swift; sourceTree = "<group>"; };
 		3461FC1322570D19006BE2EF /* ListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListState.swift; sourceTree = "<group>"; };
+		3461FC1522572F99006BE2EF /* ListStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				3461FBF92255BEC2006BE2EF /* ListViewController.swift */,
 				3461FC1122570A35006BE2EF /* ListWorker.swift */,
+				3461FC1522572F99006BE2EF /* ListStore.swift */,
 				3461FC1322570D19006BE2EF /* ListState.swift */,
 			);
 			path = List;
@@ -165,6 +168,7 @@
 				3461FC0A2255C3F8006BE2EF /* Models.swift in Sources */,
 				3461FC1422570D19006BE2EF /* ListState.swift in Sources */,
 				3461FBFA2255BEC2006BE2EF /* ListViewController.swift in Sources */,
+				3461FC1622572F99006BE2EF /* ListStore.swift in Sources */,
 				3461FC102256E96B006BE2EF /* APIAdapter.swift in Sources */,
 				3461FC1222570A35006BE2EF /* ListWorker.swift in Sources */,
 				3461FBF82255BEC2006BE2EF /* AppDelegate.swift in Sources */,

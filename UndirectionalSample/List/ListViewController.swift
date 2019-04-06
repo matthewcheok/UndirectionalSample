@@ -11,7 +11,8 @@ import UIKit
 class ListViewController: UIViewController {
   var items: [JobPosition] = []
 
-  private lazy var worker = ListWorker(renderer: self)
+  private lazy var store = ListStore(renderer: self)
+  private lazy var worker = ListWorker(store: store, actor: self)
   
   private let tableView = UITableView()
   private let reuseIdentifier = "cell"
@@ -81,7 +82,9 @@ extension ListViewController: ListStateRendering {
     items = state.items
     tableView.reloadData()
   }
+}
 
+extension ListViewController: ListViewActing {
   func presentDetailViewController(_ viewController: UIViewController) {
     navigationController?.pushViewController(viewController, animated: true)
   }
